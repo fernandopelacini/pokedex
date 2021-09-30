@@ -1,6 +1,7 @@
 # Pokedex
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.3.
+Simple Pokedex with some details on first 150 pokemons (from 1st season) on a 10 pokemon per page style
 
 ## Development server
 
