@@ -1,0 +1,37 @@
+<div class="container my-5">
+  <div class="row">
+      <div class="col-xl-8 offset-xl-2">
+          <div class="row">
+              <div *ngFor="let pokemon of pokemons; let i = index" class="col-md-6">
+                  <div class="card mb-3 bg-white" [routerLink]="['/view', pokemon.name]">
+                      <div class="card-body">
+                          <div class="row">
+                              <div class="col-7 col-sm-8">
+                                  <h3 class="card-title"># {{pokemon.id}} {{pokemon.name | titlecase}}</h3>
+                                  <h5 class="card-text">Type</h5>
+                                  <span *ngFor="let type of pokemon.types"
+                                      class="badge border rounded-pill me-1 bg-{{getType(pokemon)}}">
+                                      {{type.type.name | titlecase}}
+                                  </span>
+                              </div>
+                              <div class="col-5 col-sm-4">
+                                  <img src="{{pokemon.sprites.front_default}}"
+                                      class="card-img-top img-fluid" title="{{pokemon.name | uppercase}}"
+                                      alt={{pokemon.name}}>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-sm text-center">
+          <button class="btn btn-sm btn-primary" (click)="nextBulk()">
+              <div class="spinner-border spinner-border-sm" role="status" *ngIf="isLoading"></div>
+              {{isLoading ? 'Retrieving pokemons...' : 'Get more'}}
+          </button>
+      </div>
+  </div>
+</div>
