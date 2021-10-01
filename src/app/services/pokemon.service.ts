@@ -26,8 +26,8 @@ private _pokemonsList: any[] = [];
     this._next = next;
   }
 
-  getPokemonType(pokemon: any): string {
-    return pokemon && pokemon.types.length > 0 ? pokemon.types[0].type.name : '';
+  getPokemonType(pokemon: any): string[] {
+    return pokemon && pokemon.types.length > 0 ? pokemon.types.map((x:any) => x.type.name) : [];
   }
 
   get(name: string): Observable<any> {

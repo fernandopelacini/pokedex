@@ -71,7 +71,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  getType(pokemon: any): string {
+  getType(pokemon: any): string[] {
     return this.pokemonService.getPokemonType(pokemon);
   }
 

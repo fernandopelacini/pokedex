@@ -45,7 +45,8 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   getType(pokemon: any): string {
-    return this.pokemonService.getPokemonType(pokemon).toLocaleLowerCase();
+    return this.pokemonService.getPokemonType(pokemon).map((x : string )=> `bg-${x.toLowerCase()}`)
+    .join(' ');
   }
 
 

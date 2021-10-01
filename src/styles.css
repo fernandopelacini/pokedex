@@ -1,7 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-:root
+body
 {
-    background-color: #000000;
+	background: rgb(2,0,36);
+	background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%); 
 }
 
 .bg {
@@ -43,11 +44,11 @@
 
 .card {
 	cursor: pointer;
-
+    filter: drop-shadow(2px 4px 6px #000);
 }
 
 .bg-normal {
-	background-color: #A8A77A;
+	background-color: #424242;
   	color: #fff;
 }
 
@@ -67,17 +68,17 @@
 }
 
 .bg-grass {
-	background-color: #7AC74C;
+	background-color: #9bcc50;
 	color: #fff;
 }
 
 .bg-ice {
-	background-color: #96D9D6;
+	background-color: #51c4e7;
 	color: #fff;
 }
 
 .bg-fighting {
-	background-color: #C22E28;
+	background-color: #d56723;
 	color: #fff;
 }
 
@@ -87,48 +88,49 @@
 }
 
 .bg-ground {
-	background-color: #E2BF65;
+	background: linear-gradient(180deg, #f7de3f 50%, #ab9842 50%);
+	/* background-color: #E2BF65; */
 	color: #fff;
 }
 
 .bg-flying {
-   /* background-color:linear-gradient( #3dc7ef 50%, #bdb9b8 50%); */
-   background-color: #3dc7ef ;
+   background:linear-gradient( #3dc7ef 50%, #bdb9b8 50%); 	
+   /* background-color: #3dc7ef ; */
 	color: #fff;
 }
 
 .bg-psychic {
-	background-color: #F95587;
+	background-color: #f366b9;
 	color: #fff;
 }
 
 .bg-bug {
-	background-color: #A6B91A;
+	background-color: #729f3f;
 	color: #fff;
 }
 
 .bg-rock {
-	background-color: #B6A136;
+	background-color: #a38c21;
 	color: #fff;
 }
 
 .bg-ghost, .bg-shadow {
-	background-color: #735797;
+	background-color: #7b62a3;
 	color: #fff;
 }
 
 .bg-dragon {
-	background-color: #6F35FC;
+	background: linear-gradient(180deg, #53a4cf 50%, #f16e57 50%);
 	color: #fff;
 }
 
 .bg-dark {
-	background-color: #705746;
+	background-color: #707070;
 	color: #fff;
 }
 
 .bg-steel {
-	background-color: #B7B7CE;
+	background-color: #9eb7b8;
 	color: #fff;
 }
 
