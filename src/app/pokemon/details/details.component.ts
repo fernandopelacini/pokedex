@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription  } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { PokemonService } from 'src/app/services/pokemon.service';
 
 @Component({
@@ -11,7 +12,8 @@ import { PokemonService } from 'src/app/services/pokemon.service';
 export class DetailsComponent implements OnInit, OnDestroy {
 
   pokemon: any = null;
-
+  pokemonType:string='';
+  ability:string='';
   subscriptions: Subscription[] = [];
 
 
@@ -29,6 +31,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
       if (this.pokemonService.pokemons.length) {
         this.pokemon = this.pokemonService.pokemons.find(i => i.name === params.name);
         if (this.pokemon) {
+          this.pokemonType= this.pokemon.types.length > 0 ? this.pokemon.types.map((x:any) => x.type.name) : []; //select default pokemon type for card color.
           this.getEvolution();
           return;
         }
@@ -56,9 +59,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  // getEvolutionImage(){
-
-  // }
 
   getEvolves(chain: any) {
     this.pokemon.evolutions.push({
@@ -75,9 +75,20 @@ export class DetailsComponent implements OnInit, OnDestroy {
     return this.pokemonService.getPokemonType(pokemon);
   }
 
+  formatStat(stat:number): string
+  {
+   if(stat >= 80) return 'success';
+   if(stat >= 50 && stat < 80) return 'warning';
+   return 'danger';
+  }
+
   getId(url: string): number {
     const splitUrl = url.split('/')
     return +splitUrl[splitUrl.length - 2];
+  }
+
+  getAbilityDescription(url:string):any{
+  return this.pokemonService.getAbilityDescription(this.getId(url)).subscribe(arg => this.ability = arg);
   }
 
 }

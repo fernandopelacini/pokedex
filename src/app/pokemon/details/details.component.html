@@ -14,11 +14,11 @@
                           </div>
 
                           <ul class="list-group list-group-flush mt-4" style="width: 20rem;">
-                              <li class="list-group-item ">Experience <b
+                              <li class="list-group-item bg-{{pokemonType[0]}} ">Experience <b
                                       class="float-end">{{pokemon.base_experience}}</b></li>
-                              <li class="list-group-item ">Height <b
+                              <li class="list-group-item bg-{{pokemonType[0]}}">Height <b
                                       class="float-end">{{pokemon.height}}</b></li>
-                              <li class="list-group-item ">Weight <b
+                              <li class="list-group-item bg-{{pokemonType[0]}}">Weight <b
                                       class="float-end">{{pokemon.weight}}</b></li>
                           </ul>
                       </div>
@@ -45,7 +45,8 @@
                   <h2 class="whiteText">Evolutions</h2>
                   <div *ngFor="let evolution of pokemon.evolutions" class="col-sm mb-3">
                       <div class="card" [routerLink]="['/view', evolution.name]">
-                           <div class="card-body bg-{{getType(pokemon)}}">
+
+                           <div class="card-body bg-{{pokemonType[0]}}">
                               <h4 class="card-title text-center mb-3">{{evolution.name | titlecase}}</h4>
                               <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/{{evolution.id| addZerosToLeft}}.png"
                               title="{{pokemon.name | uppercase}}" alt={{pokemon.name}}
@@ -58,7 +59,7 @@
               </div>
 
               <!-- stats -->
-              <div class="card mb-3">
+              <div class="card mb-3 bg-{{pokemonType[0]}}">
                   <div class="card-body">
                       <h4 class="card-title">Stats</h4>
                       <div *ngFor="let stat of pokemon.stats" class="row mt-3">
@@ -67,7 +68,7 @@
                           </div>
                           <div class="col-sm-10">
                               <div class="progress" style="height: 30px">
-                                  <div class="progress-bar progress-bar-striped bg-{{getType(pokemon)}}"
+                                  <div class="progress-bar progress-bar-striped bg-{{formatStat(stat.base_stat)}}"
                                       role="progressbar" style="height: 30px;" [style.width]="stat.base_stat + '%'"
                                       aria-valuemin="0" aria-valuemax="100">
                                       <b>{{stat.base_stat}}</b>
@@ -79,24 +80,25 @@
               </div>
 
               <!-- abilities -->
-              <div class="card mb-3">
+              <div class="card mb-3 bg-{{pokemonType[0]}}">
                   <div class="card-body">
                       <h4 class="card-title">Abilities</h4>
                   </div>
                   <ul class="list-group list-group-flush">
-                      <li *ngFor="let ability of pokemon.abilities" class="list-group-item">
-                          {{ability.ability.name | titlecase}}
+                      <li *ngFor="let ability of pokemon.abilities" class="list-group-item bg-{{pokemonType[0]}}">
+                          {{ability.ability.name | titlecase}} |
+                          {{getAbilityDescription(ability.ability.url)}}
                       </li>
                   </ul>
               </div>
 
               <!-- moves -->
-              <div class="card mb-3">
+              <div class="card mb-3 bg-{{pokemonType[0]}}" >
                   <div class="card-body">
                       <h4 class="card-title">Moves</h4>
                   </div>
-                  <ul class="list-group list-group-flush">
-                      <li *ngFor="let move of pokemon.moves" class="list-group-item">
+                  <ul class="list-group list-group-flush ">
+                      <li *ngFor="let move of pokemon.moves" class="list-group-item bg-{{pokemonType[0]}}">
                           {{move.move.name | titlecase}}
                       </li>
                   </ul>

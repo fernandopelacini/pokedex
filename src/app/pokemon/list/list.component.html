@@ -27,13 +27,17 @@
           </div>
       </div>
   </div>
-
+<br>
   <div class="row">
-      <div class="col-sm text-center">
-          <button class="btn btn-sm btn-primary" (click)="nextBulk()">
+      <div class="col-12 justify-content-center">
+        <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="totalItems"
+        [ellipses]="true" [maxSize]="10" (pageChange)="onPageChanged()">
+
+        </ngb-pagination>
+          <!-- <button class="btn btn-sm btn-primary" (click)="nextBulk()">
               <div class="spinner-border spinner-border-sm" role="status" *ngIf="isLoading"></div>
               {{isLoading ? 'Retrieving pokemons...' : 'Get more'}}
-          </button>
+          </button> -->
       </div>
   </div>
 </div>

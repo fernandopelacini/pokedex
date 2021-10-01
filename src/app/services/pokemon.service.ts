@@ -18,6 +18,9 @@ private _pokemonsList: any[] = [];
     return this._pokemonsList;
   }
 
+  set pokemons(data: any[]){
+    this._pokemonsList=data;
+  }
   get next(): string {
     return this._next;
   }
@@ -36,8 +39,9 @@ private _pokemonsList: any[] = [];
   }
 
 
-  getNext(): Observable<any> {
-    const url = this.next === '' ? `${this.url}?limit=10` : this.next;
+  getNext(limit:number, offset:number): Observable<any> {
+
+    const url = this.next === '' ? `${this.url}?limit=${limit}&offset=${offset}` : this.next;
     return this.http.get<any>(url);
   }
 
@@ -55,4 +59,11 @@ private _pokemonsList: any[] = [];
   getEvolutionImage(name:string):Observable<any>{
     return this.http.get<any>(`${this.url}${name}`);
   }
+
+  getAbilityDescription(id:number):Observable<any>{
+    let result =  this.http.get<any>(`${environment.baseApiURL}ability/${id}`);
+    console.log(result);
+    return result;
+  }
+
 }
