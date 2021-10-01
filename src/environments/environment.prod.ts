@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  baseApiURL:'https://pokeapi.co/api/v2/'
 };
