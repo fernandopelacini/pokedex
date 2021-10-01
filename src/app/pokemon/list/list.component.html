@@ -15,7 +15,8 @@
                                   </span>
                               </div>
                               <div class="col-5 col-sm-4">
-                                  <img src="{{pokemon.sprites.front_default}}"
+                                  <!--<img src="{{pokemon.sprites.front_default}}"-->
+                                     <img src="https://assets.pokemon.com/assets/cms2/img/pokedex/full/{{pokemon.id| addZerosToLeft}}.png"
                                       class="card-img-top img-fluid" title="{{pokemon.name | uppercase}}"
                                       alt={{pokemon.name}}>
                               </div>
@@ -26,6 +27,7 @@
           </div>
       </div>
   </div>
+
   <div class="row">
       <div class="col-sm text-center">
           <button class="btn btn-sm btn-primary" (click)="nextBulk()">
