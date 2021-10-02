@@ -82,12 +82,12 @@
               <!-- abilities -->
               <div class="card mb-3 bg-{{pokemonType[0]}}">
                   <div class="card-body">
-                      <h4 class="card-title">Abilities</h4>
-                  </div>
-                  <ul class="list-group list-group-flush">
+                          <h4 class="card-title">Abilities</h4>
+                    </div>
+                   <ul class="list-group list-group-flush">
                       <li *ngFor="let ability of pokemon.abilities" class="list-group-item bg-{{pokemonType[0]}}">
-                          {{ability.ability.name | titlecase}} |
-                          {{getAbilityDescription(ability.ability.url)}}
+                          {{ability.ability.name | titlecase}}
+                          <!-- | {{ability.ability.description}} -->
                       </li>
                   </ul>
               </div>
@@ -95,7 +95,7 @@
               <!-- moves -->
               <div class="card mb-3 bg-{{pokemonType[0]}}" >
                   <div class="card-body">
-                      <h4 class="card-title">Moves</h4>
+                          <h4 class="card-title">Moves</h4>
                   </div>
                   <ul class="list-group list-group-flush ">
                       <li *ngFor="let move of pokemon.moves" class="list-group-item bg-{{pokemonType[0]}}">

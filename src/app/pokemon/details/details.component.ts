@@ -1,7 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription  } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Subscription, throwError  } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { PokemonService } from 'src/app/services/pokemon.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
 
   pokemon: any = null;
   pokemonType:string='';
-  ability:string='';
+  abilityDescription:string='';
   subscriptions: Subscription[] = [];
 
 
@@ -33,6 +34,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
         if (this.pokemon) {
           this.pokemonType= this.pokemon.types.length > 0 ? this.pokemon.types.map((x:any) => x.type.name) : []; //select default pokemon type for card color.
           this.getEvolution();
+          // this.getAbilityDescription();
           return;
         }
       }
@@ -40,7 +42,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
       this.subscription = this.pokemonService.get(params.name).subscribe(response => {
         this.pokemon = response;
         this.getEvolution();
-
+        // this.getAbilityDescription();
       }, error => console.log('Error occurred while retrieving data: ', error));
     });
   }
@@ -87,8 +89,28 @@ export class DetailsComponent implements OnInit, OnDestroy {
     return +splitUrl[splitUrl.length - 2];
   }
 
-  getAbilityDescription(url:string):any{
-  return this.pokemonService.getAbilityDescription(this.getId(url)).subscribe(arg => this.ability = arg);
-  }
+  getAbilityDescription(){
+    this.abilityDescription = '';
+    this.subscription = this.pokemonService.getAbilityDescription(this.getId(this.pokemon.abilities.ability.url)).subscribe(response => {
+      this.pokemon.abilities.ability.description.push(response.effect_entries[0].short_effect);
+      });
+    }
+
+  private handleError(err: HttpErrorResponse)
+    {
+      let errormessage = '';
+      if (err.error instanceof ErrorEvent)
+      {
+          //Client side
+          errormessage = `An error ocurred: ${err.error.message}` ;
+      }
+      else
+      {
+          //Backend error, return unsuccesfull error code.
+          errormessage = `Server retured code: ${err.status}, error message is ${err.message}`
+      }
+        console.error(errormessage);
+        return throwError(errormessage);
+    }
 
 }

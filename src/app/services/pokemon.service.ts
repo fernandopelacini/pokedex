@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class PokemonService {
 
+  //TODO: Create a strongly type interface to return a IPokemon instead of any
 private url:string =environment.baseApiURL + 'pokemon/';
 private _pokemonsList: any[] = [];
   private _next: string = '';
@@ -29,6 +30,8 @@ private _pokemonsList: any[] = [];
     this._next = next;
   }
 
+
+
   getPokemonType(pokemon: any): string[] {
     return pokemon && pokemon.types.length > 0 ? pokemon.types.map((x:any) => x.type.name) : [];
   }
@@ -37,7 +40,6 @@ private _pokemonsList: any[] = [];
     const url = `${this.url}${name}`;
     return this.http.get<any>(url);
   }
-
 
   getNext(limit:number, offset:number): Observable<any> {
 
@@ -62,7 +64,6 @@ private _pokemonsList: any[] = [];
 
   getAbilityDescription(id:number):Observable<any>{
     let result =  this.http.get<any>(`${environment.baseApiURL}ability/${id}`);
-    console.log(result);
     return result;
   }
 

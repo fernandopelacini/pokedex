@@ -37,17 +37,6 @@ export class ListComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach(subscription => subscription ? subscription.unsubscribe() : 0);
   }
 
-  // nextBulk(): void {
-  //   this.isLoading = true;
-  //   this.subscription = this.pokemonService.getNext().subscribe(response => {
-  //     this.pokemonService.next = response.next;
-  //     const details = response.results.map((i: any) => this.pokemonService.get(i.name));
-  //     this.subscription = concat(...details).subscribe((response: any) => {
-  //       this.pokemonService.pokemons.push(response);
-  //     });
-  //   }, error => console.log('Error occurred while retrieving data: ', error), () => this.isLoading = false);
-  // }
-
   getType(pokemon: any): string {
     return this.pokemonService.getPokemonType(pokemon).map((x : string )=> `bg-${x.toLowerCase()}`)
     .join(' ');
