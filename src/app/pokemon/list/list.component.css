@@ -1,0 +1,16 @@
+/* Only was to change style for NG Bootstrap components
+info from https://www.javaer101.com/en/article/24464445.html */
+/* /deep/ .pagination .page-item .page-link{
+  border-radius: 0% !important;
+} */
+.justify-content-center {
+  display: flex !important;
+  justify-content: center !important;
+}
+/deep/ .pagination .page-link{
+  /* border-top-style: none !important;
+  border-bottom-style:none !important; */
+   background: linear-gradient(90deg, rgba(2,0,36,1) 10%, rgba(9,9,121,1) 25%, rgba(0,212,255,1) 100%) !important;
+  color: white !important;
+  font-size: 15px;
+}

@@ -1,6 +1,8 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, throwError  } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { PokemonService } from 'src/app/services/pokemon.service';
 
 @Component({
@@ -11,7 +13,8 @@ import { PokemonService } from 'src/app/services/pokemon.service';
 export class DetailsComponent implements OnInit, OnDestroy {
 
   pokemon: any = null;
-
+  pokemonType:string='';
+  abilityDescription:string='';
   subscriptions: Subscription[] = [];
 
 
@@ -29,7 +32,9 @@ export class DetailsComponent implements OnInit, OnDestroy {
       if (this.pokemonService.pokemons.length) {
         this.pokemon = this.pokemonService.pokemons.find(i => i.name === params.name);
         if (this.pokemon) {
+          this.pokemonType= this.pokemon.types.length > 0 ? this.pokemon.types.map((x:any) => x.type.name) : []; //select default pokemon type for card color.
           this.getEvolution();
+          // this.getAbilityDescription();
           return;
         }
       }
@@ -37,7 +42,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
       this.subscription = this.pokemonService.get(params.name).subscribe(response => {
         this.pokemon = response;
         this.getEvolution();
-
+        // this.getAbilityDescription();
       }, error => console.log('Error occurred while retrieving data: ', error));
     });
   }
@@ -56,9 +61,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  // getEvolutionImage(){
-
-  // }
 
   getEvolves(chain: any) {
     this.pokemon.evolutions.push({
@@ -71,13 +73,44 @@ export class DetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  getType(pokemon: any): string {
+  getType(pokemon: any): string[] {
     return this.pokemonService.getPokemonType(pokemon);
+  }
+
+  formatStat(stat:number): string
+  {
+   if(stat >= 80) return 'success';
+   if(stat >= 50 && stat < 80) return 'warning';
+   return 'danger';
   }
 
   getId(url: string): number {
     const splitUrl = url.split('/')
     return +splitUrl[splitUrl.length - 2];
   }
+
+  getAbilityDescription(){
+    this.abilityDescription = '';
+    this.subscription = this.pokemonService.getAbilityDescription(this.getId(this.pokemon.abilities.ability.url)).subscribe(response => {
+      this.pokemon.abilities.ability.description.push(response.effect_entries[0].short_effect);
+      });
+    }
+
+  private handleError(err: HttpErrorResponse)
+    {
+      let errormessage = '';
+      if (err.error instanceof ErrorEvent)
+      {
+          //Client side
+          errormessage = `An error ocurred: ${err.error.message}` ;
+      }
+      else
+      {
+          //Backend error, return unsuccesfull error code.
+          errormessage = `Server retured code: ${err.status}, error message is ${err.message}`
+      }
+        console.error(errormessage);
+        return throwError(errormessage);
+    }
 
 }

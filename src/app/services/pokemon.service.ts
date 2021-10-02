@@ -8,6 +8,7 @@ import { environment } from 'src/environments/environment';
 })
 export class PokemonService {
 
+  //TODO: Create a strongly type interface to return a IPokemon instead of any
 private url:string =environment.baseApiURL + 'pokemon/';
 private _pokemonsList: any[] = [];
   private _next: string = '';
@@ -18,6 +19,9 @@ private _pokemonsList: any[] = [];
     return this._pokemonsList;
   }
 
+  set pokemons(data: any[]){
+    this._pokemonsList=data;
+  }
   get next(): string {
     return this._next;
   }
@@ -26,8 +30,10 @@ private _pokemonsList: any[] = [];
     this._next = next;
   }
 
-  getPokemonType(pokemon: any): string {
-    return pokemon && pokemon.types.length > 0 ? pokemon.types[0].type.name : '';
+
+
+  getPokemonType(pokemon: any): string[] {
+    return pokemon && pokemon.types.length > 0 ? pokemon.types.map((x:any) => x.type.name) : [];
   }
 
   get(name: string): Observable<any> {
@@ -35,9 +41,9 @@ private _pokemonsList: any[] = [];
     return this.http.get<any>(url);
   }
 
+  getNext(limit:number, offset:number): Observable<any> {
 
-  getNext(): Observable<any> {
-    const url = this.next === '' ? `${this.url}?limit=10` : this.next;
+    const url = this.next === '' ? `${this.url}?limit=${limit}&offset=${offset}` : this.next;
     return this.http.get<any>(url);
   }
 
@@ -55,4 +61,10 @@ private _pokemonsList: any[] = [];
   getEvolutionImage(name:string):Observable<any>{
     return this.http.get<any>(`${this.url}${name}`);
   }
+
+  getAbilityDescription(id:number):Observable<any>{
+    let result =  this.http.get<any>(`${environment.baseApiURL}ability/${id}`);
+    return result;
+  }
+
 }
